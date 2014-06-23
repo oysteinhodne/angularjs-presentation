@@ -21,8 +21,26 @@
         <br />
 
         <div ng-show="user">
-            <h3>{{user.name}}</h3>
-            <img ng-src="https://www.gravatar.com/avatar/{{user.gravatar_id}}">
+            <div>
+                <h3>{{user.name}}</h3>
+                <img ng-src="https://www.gravatar.com/avatar/{{user.gravatar_id}}">
+            </div>
+
+            <br>
+
+            <form class="form-inline">
+                <label>Filter: </label>
+                <input class="form-control" placeholder="Filter text" type="text" ng-model="query">
+
+                <label>Order By: </label>
+                <select class="form-control" ng-model="orderByProperty">
+                    <option value="-stargazers_count">Stars</option>
+                    <option value="name">Name</option>
+                    <option value="description">Description</option>
+                </select>
+            </form>
+
+            <br>
 
             <table class="table table-hover">
                 <thead>
@@ -30,14 +48,14 @@
                         Name
                     </th>
                     <th>
-                        #Stars
+                        Stars
                     </th>
                     <th>
                         Description
                     </th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="repo in repos">
+                    <tr ng-repeat="repo in repos | filter:query | orderBy:orderByProperty">
                         <td>
                             {{repo.name}}
                         </td>
