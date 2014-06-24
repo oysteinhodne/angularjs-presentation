@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>05 - Filters</title>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://code.angularjs.org/1.2.9/angular.js"></script>
 </head>
 <body ng-app="githubViewer">
@@ -37,6 +38,7 @@
                     <option value="-stargazers_count">Stars</option>
                     <option value="name">Name</option>
                     <option value="description">Description</option>
+                    <option value="rating">Rating</option>
                 </select>
             </form>
 
@@ -53,8 +55,11 @@
                     <th>
                         Description
                     </th>
+                    <th>
+                        Rating
+                    </th>
                 </thead>
-                <tbody>
+                <tbody ng-init="rating = 0">
                     <tr ng-repeat="repo in repos | filter:query | orderBy:orderByProperty">
                         <td>
                             {{repo.name}}
@@ -65,11 +70,13 @@
                         <td>
                             {{repo.description}}
                         </td>
+                        <td my-rating-directive rating-value="rating" max="5" on-rating-selected="logRating(rating)"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 </div>
 <script src="app.js"></script>
+<script src="directives.js"></script>
 </body>
 </html>

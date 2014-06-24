@@ -14,16 +14,33 @@ app.factory('githubService', function($http){
                     });
     };
 
-    var getRepos = function(repoUrl){
-        return $http.get(repoUrl)
+    var getRepos = function(user){
+        return $http.get(user.repos_url)
                     .then(function(response){
                         return response.data;
+                    });
+    };
+
+    var getRepoDetails = function(username, reponame){
+        var repo;
+        var repoUrl = "https://api.github.com/repos/" + username + '/' + reponame;
+
+        return $http.get(repoUrl)
+                    .then(function(response){
+                        repo = response.data;
+                        return $http.get(repoUrl + '/collaborators');
+                    })
+
+                    .then(function(response){
+                        repo.collaborators = response.data;
+                        return repo;
                     });
     };
 
     //Return an object providing access to the functions within the service.
     return {
         getUser: getUser,
-        getRepos: getRepos
+        getRepos: getRepos,
+        getRepoDetails: getRepoDetails
     }
-})
+});

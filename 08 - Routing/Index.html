@@ -1,16 +1,95 @@
 <!doctype html>
 <html lang="en" >
 <head>
-	<meta charset="utf-8">
-	<title>My Angular App</title>
-	<link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <title>08 - Routing</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <script src="https://code.angularjs.org/1.2.9/angular.js"></script>
     <script src="https://code.angularjs.org/1.2.9/angular-route.js"></script>
 </head>
-<body ng-app>
+<body ng-app="githubViewer">
+    <div class="container" >
+        <h1 class="page-header">GitHub Viewer</h1>
 
-	<h1>Hello {{'Angular' + '!'}}</h1>
-	
-	<script src="app.js"></script>
+        <div ng-view=""></div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="services.js"></script>
+
+    <script type="text/ng-template" id="main.html">
+        <form class="form-inline" ng-submit="searchUser(username)">
+            <label>Search GitHub user: </label>
+            <input class="form-control" type="text" ng-model="username"/>
+            <button type="submit" class="btn btn-default" >Search</button>
+        </form>
+    </script>
+
+    <script type="text/ng-template" id="user.html">
+        <div>
+            <div>
+                <h3>{{user.name}}</h3>
+                <img ng-src="https://www.gravatar.com/avatar/{{user.gravatar_id}}" title="{{user.name}}">
+            </div>
+
+            <br>
+
+            <form class="form-inline">
+                <label>Filter: </label>
+                <input class="form-control" placeholder="Filter text" type="text" ng-model="query">
+
+                <label>Order By: </label>
+                <select class="form-control" ng-model="repoSortOrder">
+                    <option value="-stargazers_count">Stars</option>
+                    <option value="name">Name</option>
+                    <option value="description">Description</option>
+                </select>
+            </form>
+
+            <br>
+
+            <table class="table table-hover">
+                <thead>
+                    <th>Name</th>
+                    <th>Stars</th>
+                    <th>Description</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="repo in repos | filter:query | orderBy:repoSortOrder">
+                        <td><a href="#/user/{{user.login}}/{{repo.name}}">{{repo.name}}</a></td>
+                        <td>{{repo.stargazers_count}}</td>
+                        <td>{{repo.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="repo.html">
+        <h3>{{repo.name}}</h3>
+
+        <br />
+
+        <div>
+            <label>Open Issues : {{repo.open_issues_count}}</label>
+        </div>
+
+        <br />
+
+        <div>
+            <h3>Collaborators</h3>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="user in repo.collaborators">
+                    <img src="http://www.gravatar.com/avatar/{{user.gravatar_id}}" alt="{{user.login}}">
+                    {{user.login}}
+                </li>
+            </ul>
+        </div>
+
+        <ul class="nav nav-pills">
+            <li><a href="#/main"><span class="glyphicon glyphicon-chevron-left"></span> Back to Search</a></li>
+            <li><a href="#/user/{{repo.owner.login}}"><span class="glyphicon glyphicon-chevron-left"></span> Back to {{repo.owner.login}}</a></li>
+        </ul>
+    </script>
 </body>
 </html>

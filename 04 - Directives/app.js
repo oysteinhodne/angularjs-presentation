@@ -11,4 +11,8 @@ app.controller('MainController', function($scope, $http){
                     })
             })
     }
+
+    $scope.logRating = function(rating){
+        console.log(rating);
+    }
 });

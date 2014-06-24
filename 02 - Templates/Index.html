@@ -8,23 +8,23 @@
 </head>
 <body ng-app="templatesDemo">
 
-<div class="container">
-    <div class="jumbotron">
-        <h1>Templates demo</h1>
-        <br/>
-        <div class="form-group">
-            <label>Message:</label>
-            <input class="form-control" type="text" ng-model="message" />
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Templates demo</h1>
+            <br/>
+
+            <div class="form-group">
+                <label>Message:</label>
+                <input class="form-control" type="text" ng-model="message" />
+            </div>
+            <p>{{message}}</p>
+
+            <br/>
+
+            <p>2 + 3</p>
+            <p>{{ 2 + 3 }}</p>
         </div>
-        <p>{{message}}</p>
-
-        <br/>
-
-        <p>2 + 3</p>
-        <p>{{ 2 + 3 }}</p>
     </div>
-</div>
-
 
 	<script src="app.js"></script>
 </body>
