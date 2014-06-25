@@ -2,14 +2,27 @@
 <html lang="en" >
 <head>
 	<meta charset="utf-8">
-	<title>My Angular App</title>
-	<link rel="stylesheet" href="style.css">
+	<title>06 - Dependency Injection</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <script src="https://code.angularjs.org/1.2.9/angular.js"></script>
 </head>
-<body ng-app>
+<body ng-app="dependencyInjection">
 
-	<h1>Hello {{'Angular' + '!'}}</h1>
-	
+    <div class="container" ng-controller="Controller">
+        <h1 class="page-header">Dependency Injection</h1>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <label>NumberValue: </label> {{ numberValue }}
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <label>OtherModuleValue: </label> {{ otherModuleValue }}
+            </div>
+        </div>
+    </div>
 	<script src="app.js"></script>
 </body>
 </html>
