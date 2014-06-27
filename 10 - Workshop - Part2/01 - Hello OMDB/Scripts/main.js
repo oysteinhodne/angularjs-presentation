@@ -64,6 +64,7 @@ app.controller('MovieController', function($scope, $routeParams, omdb, $window){
     }
 });
 
+//Custom Filter
 app.filter('capitalize', function() {
     return function(input, scope) {
         if (input!=null)
