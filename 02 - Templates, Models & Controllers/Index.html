@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" >
+<head>
+	<meta charset="utf-8">
+	<title>02 - Tmpl, Mdl, Ctrl</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<script src="https://code.angularjs.org/1.2.9/angular.js"></script>
+</head>
+<body ng-app="githubViewer">
+
+    <div class="container" ng-controller="MainController">
+        <h1 class="page-header">Github Viewer</h1>
+
+        <br />
+
+        <form class="form-inline" ng-submit="searchUser(username)">
+            <label>Search Github user: </label>
+            <input class="form-control" type="text" ng-model="username" required/>
+            <button type="submit" class="btn btn-default" >Search</button>
+        </form>
+
+        <br />
+
+        <div ng-show="user" ng-include="'user.html'"></div>
+        <br>
+        <div ng-include="'myTemplate.html'"></div>
+
+    </div>
+
+	<script src="app.js"></script>
+
+    <script type="text/ng-template" id="user.html">
+        <img ng-src="https://www.gravatar.com/avatar/{{user.gravatar_id}}">
+        <p>{{user.name}}</p>
+    </script>
+
+    <script type="text/ng-template" id="myTemplate.html">
+        I'm a template! :D
+    </script>
+</body>
+</html>
