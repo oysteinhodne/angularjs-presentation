@@ -2,10 +2,118 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Hello</title>
+    <title>OMDB Viewer</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.angularjs.org/1.2.9/angular.js"></script>
+    <script src="https://code.angularjs.org/1.2.9/angular-route.js"></script>
 </head>
-<body>
+<body ng-app="omdbViewer">
+
+<div class="container">
+    <h2 class="page-header"><span class="glyphicon glyphicon-film"></span> Online Movie Database</h2>
+
+    <div ng-view=""></div>
+</div>
 
 <script src="Scripts/main.js"></script>
+<script src="Scripts/directives.js"></script>
+<script src="Scripts/services.js"></script>
+
+<script type="text/ng-template" id="main.html">
+    <form class="form-horizontal well" ng-submit="search(titleSearchString, yearSearchString)">
+        <legend>Movie Search</legend>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="Title" ng-model="titleSearchString" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Year</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="Year" ng-model="yearSearchString">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-4">
+                <button type="submit" class="btn btn-default">Search movies</button>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/ng-template" id="search-result.html">
+
+    <form class="form-inline">
+        <div class="form-group">
+            <label class="control-label">Order by: </label>
+            <select class="form-control" ng-model="orderByProp">
+                <option value="Title">Title</option>
+                <option value="Type">Type</option>
+                <option value="Year">Year</option>
+            </select>
+        </div>
+
+        <div class="form-group" style="margin-left:10px">
+            <label class="control-label">Filter: </label>
+            <input class="form-control" ng-model="query" placeholder="Filter">
+        </div>
+    </form>
+
+    <div ng-show="movies">
+        <table class="table table-hover">
+            <thead>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Year</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="movie in movies.Search | filter:query | orderBy:orderByProp">
+                <td><a href="#/movie/{{movie.imdbID}}">{{movie.Title}}</td>
+                <td>{{movie.Type | capitalize}}</td>
+                <td>{{movie.Year}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="btn btn-default" ><a href="#/main">Back to search</a></div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="movie.html">
+    <div class="jumbotron row" ng-init="rating = 0">
+
+        <div class="col-md-4">
+            <img ng-src="{{movie.Poster}}">
+        </div>
+
+        <div class="col-md-8">
+            <button class="btn btn-default" ng-click="back()"><a >Back to search results</a></button>
+            <button class="btn btn-default" ><a href="#/main">Back to search</a></button>
+            <h2 class="">{{movie.Title}} ({{movie.Year}})</h2>
+            <br>
+            Your Rating: <div my-rating-directive max="10" rating-value="rating" on-rating-selected="logRating(rating)"></div>
+            <br>
+            <p style="font-size:18px;">{{movie.Plot}}</p>
+            <br>
+            <table class="table no-border-table">
+                <tbody>
+                    <tr>
+                        <th>Director:</th>
+                        <td>{{movie.Director}}</td>
+                    </tr>
+                    <tr>
+                        <th>Writers:</th>
+                        <td>{{movie.Writer}}</td>
+                    </tr>
+                    <tr>
+                        <th>Stars:</th>
+                        <td>{{movie.Actors}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
 </body>
 </html>

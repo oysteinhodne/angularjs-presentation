@@ -5,6 +5,7 @@ app.directive('myRatingDirective', function(){
                       '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +
                         '\u2605' +
                       '</li>' +
+                      '<li style="margin-left:5px">{{ratingValue}} / {{max}}</li>' +
                     '</ul>',
         scope: {
             ratingValue: '=',
