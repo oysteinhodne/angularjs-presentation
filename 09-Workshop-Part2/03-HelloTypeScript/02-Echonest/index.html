@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="../../../ExtrernalLibs/libs/angular.js"></script>
+    <script src="Scripts/app.js"></script>
+</head>
+<body ng-app="echonest" ng-controller="StartCtrl">
+<div class="container">
+    <h2 class="page-header"><span class="glyphicon glyphicon-film"></span> Online Music Database</h2>
+    <div class="row">
+    <div class="col-md-3">
+        <div class="well">
+        <form class="form-horizontal">
+            <legend>Artist Search</legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="vm.searchString" placeholder="Title" required>
+                </div>
+            </div>
+        </form>
+
+        <div class="searchResults">
+            <ul>
+                <li ng-repeat="artist in vm.artists">
+                    <a href ng-click="vm.getArtist(artist.id)">{{artist.name}}</a>
+                </li>
+            </ul>
+        </div>
+
+        </div>
+    </div>
+    <div class="col-md-9">{{vm.selectedArtist.name}}</div>
+    </div>
+</div>
+</body>
+</html>

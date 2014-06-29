@@ -1,5 +1,5 @@
 /// <reference path="../../../Extrernal Libs/DefinitionFiles/AngularJs/angular.d.ts"/>
-/// <reference path="../../../Extrernal Libs/DefinitionFiles/AngularJs/angular-route.d.ts"/>
+/// <reference path="../../../ExtrernalLibs/DefinitionFiles/AngularJs/angular-route.d.ts"/>
 var omdb;
 (function (omdb) {
     omdb.app = angular.module('omdbViewer', ['ngRoute']);
@@ -180,3 +180,4 @@ var omdb;
     omdb.app.directive(omdb.directives);
 })(omdb || (omdb = {}));
 //Compile with tsc main.ts --out 'app.js' --sourcemap
+//# sourceMappingURL=app.js.map

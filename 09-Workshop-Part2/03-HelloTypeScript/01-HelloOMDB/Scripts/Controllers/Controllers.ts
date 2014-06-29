@@ -13,8 +13,6 @@ module omdb.controllers {
 
     export class SearchResultController{
 
-
-
         static $inject = ['$scope', '$routeParams', 'omdb'];
         constructor(_$scope, _$routeParams, _omdb){
             var movieTitle = _$routeParams.movieTitle;
