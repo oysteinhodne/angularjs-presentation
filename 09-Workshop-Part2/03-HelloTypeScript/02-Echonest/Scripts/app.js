@@ -37,26 +37,11 @@ var eco;
                     return d.response.artists;
                 });
             };
-            //http://developer.echonest.com/api/v4/artist/
-            // profile?api_key=7STFOVHIIXNZCEQSI&id=ARH6W4X1187B99274F
-            // &format=json
-            // &bucket=biographies
-            // &bucket=blogs
-            // &bucket=familiarity
-            // &bucket=hotttnesss
-            // &bucket=images
-            // &bucket=news
-            // &bucket=reviews
-            // &bucket=terms
-            // &bucket=urls
-            // &bucket=video
-            // &bucket=id:musicbrainz
             this.getProfile = function (id, data) {
                 data = data || {};
                 data.id = id;
                 data.bucket = ['video', 'images'];
                 return _this.query('artist/profile', data).then(function (d) {
-                    _this.artists[data.id] = d.response.artist;
                     return d.response.artist;
                 });
             };
@@ -104,8 +89,14 @@ var eco;
             function StartCtrl($scope, echonest, $sce) {
                 var _this = this;
                 this.getArtist = function (id) {
-                    _this.echoService.getProfile(id).then(function (d) {
-                        _this.selectedArtist = d;
+                    return _this.echoService.getProfile(id).then(function (d) {
+                        console.log(d);
+                        return d;
+                    });
+                };
+                this.findArtists = function (str) {
+                    return _this.echoService.findArtist(str, {}).then(function (data) {
+                        return data;
                     });
                 };
                 this.cleanYoutubeUrl = function (url) {
@@ -116,7 +107,6 @@ var eco;
                     if (results == null) {
                         return null;
                     } else {
-                        console.log(results[1]);
                         return "//www.youtube.com/embed/" + results[1];
                     }
                 };
@@ -124,12 +114,11 @@ var eco;
                 this.echoService = echonest;
                 var _scope = $scope;
                 $scope.vm = this;
-                $scope.$watch('vm.searchString', function (name) {
-                    name = name || "";
-                    if (name.length > 3) {
-                        _this.echoService.findArtist(name, {}).then(function (data) {
-                            console.log(data);
-                            _this.artists = data;
+                $scope.$watch('vm.selected', function (selected) {
+                    console.log(typeof selected);
+                    if (typeof selected === "object") {
+                        _this.getArtist(selected.id).then(function (sa) {
+                            _this.selectedArtist = sa;
                         });
                     }
                 });

@@ -27,26 +27,12 @@ module eco{
             });
 
         };
-        //http://developer.echonest.com/api/v4/artist/
-        // profile?api_key=7STFOVHIIXNZCEQSI&id=ARH6W4X1187B99274F
-        // &format=json
-        // &bucket=biographies
-        // &bucket=blogs
-        // &bucket=familiarity
-        // &bucket=hotttnesss
-        // &bucket=images
-        // &bucket=news
-        // &bucket=reviews
-        // &bucket=terms
-        // &bucket=urls
-        // &bucket=video
-        // &bucket=id:musicbrainz
+
         getProfile = (id:string, data?)=>{
             data = data || {};
             data.id = id;
             data.bucket = ['video', 'images'];
             return this.query('artist/profile', data).then((d:any)=>{
-                this.artists[data.id] = d.response.artist;
                 return d.response.artist;
             });
         };

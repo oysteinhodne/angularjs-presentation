@@ -2,16 +2,20 @@
 module eco.controllers {
     export class StartCtrl {
         echoService:EchonestService;
-
-        searchString:string;
         artists: any[];
+        selected: any;
         selectedArtist: any;
         getArtist = (id)=>{
-            this.echoService.getProfile(id).then((d)=>{
-                this.selectedArtist = d;
+            return this.echoService.getProfile(id).then((d)=>{
+                console.log(d);
+                return d;
             });
         };
-
+        findArtists = (str:string)=>{
+            return this.echoService.findArtist(str, {}).then((data)=>{
+                return data;
+            });
+        };
         cleanYoutubeUrl = function(url){
                 name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
                 var regexS = "[\\?&]v=([^&#]*)";
@@ -21,7 +25,6 @@ module eco.controllers {
                     return null;
                 }
                 else{
-                    console.log(results[1]);
                     return "//www.youtube.com/embed/" + results[1];
                 }
         };
@@ -32,13 +35,13 @@ module eco.controllers {
             this.echoService = echonest;
             var _scope = $scope;
             $scope.vm = this;
-            $scope.$watch('vm.searchString', (name:string) =>{
-                name = name || "";
-                if(name.length > 3){
-                    this.echoService.findArtist(name, {}).then((data)=>{
-                        console.log(data);
-                        this.artists = data;
+            $scope.$watch('vm.selected', (selected:any) =>{
+                console.log(typeof selected);
+                if(typeof selected === "object"){
+                    this.getArtist(selected.id).then((sa)=>{
+                        this.selectedArtist = sa;
                     });
+
                 }
             });
         }
