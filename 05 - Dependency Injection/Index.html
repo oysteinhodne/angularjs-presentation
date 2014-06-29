@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <script src="https://code.angularjs.org/1.2.9/angular.js"></script>
 </head>
-<body ng-app="dependencyInjection">
+<body ng-app="myApp">
 
     <div class="container" ng-controller="Controller">
         <h1 class="page-header">Dependency Injection</h1>
@@ -23,6 +23,23 @@
             </div>
         </div>
     </div>
+
+    <div class="container" ng-controller="Controller2">
+        <h1 class="page-header">Dependency Injection</h1>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <label>NumberValue: </label> {{ numberValue }}
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <label>OtherModuleValue: </label> {{ otherModuleValue }}
+            </div>
+        </div>
+    </div>
+
 	<script src="app.js"></script>
 </body>
 </html>
