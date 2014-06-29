@@ -35,4 +35,4 @@ module.exports = function(grunt) {
 ---
 
 npm install grunt-contrib-concat --save-dev
-
+npm install grunt-karma --save-dev

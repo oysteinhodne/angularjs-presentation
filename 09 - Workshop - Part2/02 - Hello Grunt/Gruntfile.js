@@ -8,12 +8,12 @@ module.exports = function(grunt) {
 			},
 			javascript:{
 				src: ['libs/angular.js', 'libs/angular-route.js', 'scripts/**/*.js'],
-      			dest: '.tmp/concat/scripts.js'
-      		},
-      		css: {
-      			src: ['css/bootstrap.css','css/style.css'],
-      			dest: '.tmp/concat/style.css'
-      		}
+				dest: '.tmp/concat/scripts.js'
+			},
+			css: {
+				src: ['css/bootstrap.css','css/style.css'],
+				dest: '.tmp/concat/style.css'
+			}
 		},
 
 		uglify: {
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 					'dist/build.js': ['.tmp/concat/scripts.js']
 				}
 			}
-		},
+		}
 	});
 
 
