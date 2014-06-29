@@ -10,9 +10,13 @@ module.exports = function(grunt) {
 				src: ['libs/angular.js', 'libs/angular-route.js', 'scripts/**/*.js'],
 				dest: '.tmp/concat/scripts.js'
 			},
-			css: {
-				src: ['css/bootstrap.css','css/style.css'],
-				dest: '.tmp/concat/style.css'
+		},
+
+		cssmin: {
+			combine: {
+				files: {
+					'dist/build.css': ['css/bootstrap.css','css/style.css']
+				}
 			}
 		},
 
@@ -32,8 +36,9 @@ module.exports = function(grunt) {
 	// Load the plugins
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 
 	// Detfaul tasks
-	grunt.registerTask('default', ['concat','uglify']);
+	grunt.registerTask('default', ['concat','cssmin','uglify']);
 
 };
