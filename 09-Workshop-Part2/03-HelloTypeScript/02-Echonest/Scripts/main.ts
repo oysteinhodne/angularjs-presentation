@@ -4,7 +4,9 @@
 
 module eco {
     app.controller(controllers);
-    app.config(['echonestProvider',(_echonestProvider:IEchonestProvider)=>{
+    app.config(['echonestProvider', '$sceDelegateProvider',(_echonestProvider:IEchonestProvider,
+                                                            $sceDelegateProvider:ng.ISCEDelegateProvider)=>{
         _echonestProvider.apiKey = "7STFOVHIIXNZCEQSI";
+        $sceDelegateProvider.resourceUrlWhitelist(['self', new RegExp('^(http[s]?):\/\/(w{3}.)?youtube\.com/.+$')]);
     }])
 }

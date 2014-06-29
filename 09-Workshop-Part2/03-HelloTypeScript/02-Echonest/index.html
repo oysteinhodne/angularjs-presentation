@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <script src="../../../ExtrernalLibs/libs/angular.js"></script>
-    <script src="Scripts/app.js"></script>
+
 </head>
-<body ng-app="echonest" ng-controller="StartCtrl">
+<body ng-app="echonest" ng-controller="eco.controllers.StartCtrl">
 <div class="container">
     <h2 class="page-header"><span class="glyphicon glyphicon-film"></span> Online Music Database</h2>
     <div class="row">
@@ -18,7 +17,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" ng-model="vm.searchString" placeholder="Title" required>
+                    <input type="text" class="form-control" ng-model="vm.searchString" ng-model-options="{debounce: 500}" placeholder="Title" required>
                 </div>
             </div>
         </form>
@@ -33,8 +32,25 @@
 
         </div>
     </div>
-    <div class="col-md-9">{{vm.selectedArtist.name}}</div>
+    <div class="col-md-9">
+        <h2>{{vm.selectedArtist.name}}</h2>
+        <div style="height: 305px">
+            <carousel interval="5000">
+                <slide ng-repeat="image in vm.selectedArtist.images" active="slide.active">
+                    <img ng-src="{{image.url}}" style="margin:auto; height: 305px">
+                </slide>
+            </carousel>
+        </div>
+        <div ng-repeat="vid in vm.selectedArtist.video">
+            <iframe width="420" height="315" ng-src="{{vm.cleanYoutubeUrl(vid.url)}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+    </div>
+
     </div>
 </div>
+<script src="../../../ExtrernalLibs/libs/angular.js"></script>
+<script src="../../../ExtrernalLibs/libs/ui-bootstrap-tpls-0.11.0.js"></script>
+<script src="Scripts/app.js"></script>
 </body>
 </html>

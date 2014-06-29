@@ -44,7 +44,7 @@ module eco{
         getProfile = (id:string, data?)=>{
             data = data || {};
             data.id = id;
-            data.bucket = ['biographies'];
+            data.bucket = ['video', 'images'];
             return this.query('artist/profile', data).then((d:any)=>{
                 this.artists[data.id] = d.response.artist;
                 return d.response.artist;

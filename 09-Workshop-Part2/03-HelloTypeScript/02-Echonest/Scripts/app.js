@@ -1,7 +1,7 @@
 /// <reference path="../../../ExtrernalLibs/DefinitionFiles/AngularJs/angular.d.ts"/>
 var eco;
 (function (eco) {
-    eco.app = angular.module('echonest', []);
+    eco.app = angular.module('echonest', ['ui.bootstrap']);
 })(eco || (eco = {}));
 /// <reference path="../../../../ExtrernalLibs/DefinitionFiles/AngularJs/angular.d.ts"/>
 var eco;
@@ -54,7 +54,7 @@ var eco;
             this.getProfile = function (id, data) {
                 data = data || {};
                 data.id = id;
-                data.bucket = ['biographies'];
+                data.bucket = ['video', 'images'];
                 return _this.query('artist/profile', data).then(function (d) {
                     _this.artists[data.id] = d.response.artist;
                     return d.response.artist;
@@ -101,13 +101,26 @@ var eco;
     /// <reference path="../Services/Echonest/EchonestService.ts"/>
     (function (controllers) {
         var StartCtrl = (function () {
-            function StartCtrl($scope, echonest) {
+            function StartCtrl($scope, echonest, $sce) {
                 var _this = this;
                 this.getArtist = function (id) {
                     _this.echoService.getProfile(id).then(function (d) {
                         _this.selectedArtist = d;
                     });
                 };
+                this.cleanYoutubeUrl = function (url) {
+                    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                    var regexS = "[\\?&]v=([^&#]*)";
+                    var regex = new RegExp(regexS);
+                    var results = regex.exec(url);
+                    if (results == null) {
+                        return null;
+                    } else {
+                        console.log(results[1]);
+                        return "//www.youtube.com/embed/" + results[1];
+                    }
+                };
+                $sce.trustAsResourceUrl('http://www.youtube.com/');
                 this.echoService = echonest;
                 var _scope = $scope;
                 $scope.vm = this;
@@ -121,6 +134,7 @@ var eco;
                     }
                 });
             }
+            StartCtrl.$inject = ['$scope', 'echonest', '$sce'];
             return StartCtrl;
         })();
         controllers.StartCtrl = StartCtrl;
@@ -134,8 +148,9 @@ var eco;
 (function (eco) {
     eco.app.controller(eco.controllers);
     eco.app.config([
-        'echonestProvider', function (_echonestProvider) {
+        'echonestProvider', '$sceDelegateProvider', function (_echonestProvider, $sceDelegateProvider) {
             _echonestProvider.apiKey = "7STFOVHIIXNZCEQSI";
+            $sceDelegateProvider.resourceUrlWhitelist(['self', new RegExp('^(http[s]?):\/\/(w{3}.)?youtube\.com/.+$')]);
         }]);
 })(eco || (eco = {}));
 //# sourceMappingURL=app.js.map

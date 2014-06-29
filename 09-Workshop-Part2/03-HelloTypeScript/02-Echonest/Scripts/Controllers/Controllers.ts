@@ -12,7 +12,23 @@ module eco.controllers {
             });
         };
 
-        constructor($scope, echonest:EchonestService){
+        cleanYoutubeUrl = function(url){
+                name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+                var regexS = "[\\?&]v=([^&#]*)";
+                var regex = new RegExp( regexS );
+                var results = regex.exec( url );
+                if( results == null ){
+                    return null;
+                }
+                else{
+                    console.log(results[1]);
+                    return "//www.youtube.com/embed/" + results[1];
+                }
+        };
+
+        static $inject = ['$scope', 'echonest', '$sce'];
+        constructor($scope, echonest:EchonestService, $sce:ng.ISCEService){
+            $sce.trustAsResourceUrl('http://www.youtube.com/');
             this.echoService = echonest;
             var _scope = $scope;
             $scope.vm = this;
