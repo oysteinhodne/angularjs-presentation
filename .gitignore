@@ -1,10 +1,4 @@
 .idea
 atlassian-ide-plugin.xml
-
-- Hello World   (app, controller, $scope, template)
-- Hello service (app, controller, $scope, template, service)
-- Hello repeat   (app, controller, $scope, template, directive, filers)
---- For Part 2 or for the more advanced
-- Hello OMDB      (app, controller, $scope, template, directive, filers)
-- Hello Grunt (app, controller, $scope, template, directive, filers, test (jasmine, phantom, Karma))
-
+node_modules
+dist/
