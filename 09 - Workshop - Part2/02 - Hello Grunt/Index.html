@@ -70,7 +70,7 @@
             </tr>
             </tbody>
         </table>
-        <div class="btn btn-default" ><a href="#/main">Back to search</a></div>
+        <a class="btn btn-default" href="#/main">Back to search</a>
     </div>
 </script>
 
@@ -78,12 +78,12 @@
     <div class="jumbotron row" ng-init="rating = 0">
 
         <div class="col-md-4">
-            <img ng-src="{{movie.Poster}}" alt="{{movie.Title}}">
+            <img class="poster" ng-src="{{movie.Poster}}" alt="{{movie.Title}}">
         </div>
 
         <div class="col-md-8">
-            <button class="btn btn-default" ng-click="back()"><a >Back to search results</a></button>
-            <button class="btn btn-default" ><a href="#/main">Back to search</a></button>
+            <button class="btn btn-default" ng-click="back()">Back to search results</button>
+            <a class="btn btn-default" href="#/main">Back to search</a>
             <h2 class="">{{movie.Title}} ({{movie.Year}})</h2>
             <br>
             Your Rating: <div my-rating-directive max="10" rating-value="rating" on-rating-selected="logRating(rating)"></div>
@@ -92,18 +92,18 @@
             <br>
             <table class="table no-border-table">
                 <tbody>
-                    <tr>
-                        <th>Director:</th>
-                        <td>{{movie.Director}}</td>
-                    </tr>
-                    <tr>
-                        <th>Writers:</th>
-                        <td>{{movie.Writer}}</td>
-                    </tr>
-                    <tr>
-                        <th>Stars:</th>
-                        <td>{{movie.Actors}}</td>
-                    </tr>
+                <tr>
+                    <th>Director:</th>
+                    <td>{{movie.Director}}</td>
+                </tr>
+                <tr>
+                    <th>Writers:</th>
+                    <td>{{movie.Writer}}</td>
+                </tr>
+                <tr>
+                    <th>Stars:</th>
+                    <td>{{movie.Actors}}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
